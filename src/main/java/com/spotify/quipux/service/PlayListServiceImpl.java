@@ -2,6 +2,7 @@ package com.spotify.quipux.service;
 
 import com.spotify.quipux.exception.ResourceNotFoundException;
 import com.spotify.quipux.model.PlayList;
+import com.spotify.quipux.model.Song;
 import com.spotify.quipux.repository.PlayListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,11 @@ public class PlayListServiceImpl implements PlayListService{
     public PlayList createPlayList(PlayList playList) {
         if (playList.getName() == null || playList.getName().isEmpty()) {
             throw new IllegalArgumentException("Name is required");
+        }
+        if (playList.getSongs() != null) {
+            for (Song s : playList.getSongs()) {
+                s.setPlaylist(playList);
+            }
         }
         return playListRepository.save(playList);
     }

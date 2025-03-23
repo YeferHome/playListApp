@@ -1,5 +1,6 @@
 package com.spotify.quipux.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +25,7 @@ public class Song {
 
     @ManyToOne
     @JoinColumn(name = "playlist_id")
+    @JsonBackReference
     private PlayList playlist;
 
     public Song() {}
